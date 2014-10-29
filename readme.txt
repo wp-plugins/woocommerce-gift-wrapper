@@ -24,6 +24,7 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 == Installation ==
 
 = To install plugin =
+
 1. Upload the entire "woocommerce_gift_wrap" folder to the "/wp-content/plugins/" directory.
 2. Activate the plugin through the "Plugins" menu in WordPress.
 3. Visit WooCommerce->Settings->Products tab to set your plugin preferences. Look for the Gift Wrap sub tab.
@@ -38,6 +39,7 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 
 = It doesn't work =
 Things to check:
+
 1. Is the plugin activated?
 2. Is WooCommerce activated and configured, and are all the theme files current (check WooCommerce->system status if unsure)
 3. Does the your-theme-or-child-theme/woocommerce/cart/cart.php file include the code
@@ -46,6 +48,7 @@ Things to check:
 `<?php do_action('woocommerce_after_cart'); ?>`
 
 If not, your theme is missing a crucial hook(s) to the functioning of this plugin. Try using the other location for the "Where to Show Gift Wrapping" in the plugin settings.
+
 4. Other problem? Let me know!
 
 = Why isn't gift wrapping added when I click the button in the cart? =
@@ -53,7 +56,7 @@ Have you added a gift wrapping as a product? This plugin works by creating a pro
 
 = Why make more than one type of wrapping? =
 
-Maybe you want to offer "Winter Holiday" wrapping and "Birthday" wrapping separately, or maybe you have other types of wrapping paper or boxes you use that may incur different prices or shipping rules. It's up to you whether or not you make more than one wrapping product.
+Maybe you want to offer "Winter Holiday" wrapping and "Birthday" wrapping separately, or maybe you have other types of wrapping paper or boxes you use that may incur different prices or shipping rules. It's up to you whether or not you make more than one wrapping product. You don't have to.
 
 = How can I style the appearance? =
 I've added CSS tags to every aspect of this form so you can style away. If you want to streamline your site and speed page-loading, move the CSS to your style.css file and comment out the line in *woocommerce-gift-wrap.php* that reads: 
