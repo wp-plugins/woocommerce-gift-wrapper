@@ -1,4 +1,4 @@
-=== Gift Wrap for Woocommerce ===
+=== Woocommerce Gift Wrapper===
 Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: ecommerce, e-commerce, woocommerce, gift, present, holidays
@@ -49,7 +49,7 @@ Things to check:
 
 If not, your theme is missing a crucial hook(s) to the functioning of this plugin. Try using the other location for the "Where to Show Gift Wrapping" in the plugin settings.
 
-4. Other problem? Let me know!
+*Other problem?* Let me know!
 
 = Why isn't gift wrapping added when I click the button in the cart? =
 Have you added a gift wrapping as a product? This plugin works by creating a product that virtually represents gift wrapping. It is up to you whether that product is visible in the catalog or not, and how fleshed-out you make the product description. But there needs to be a product, and it needs to be in a category whether or not you make more than one wrapping types.
@@ -59,7 +59,7 @@ Have you added a gift wrapping as a product? This plugin works by creating a pro
 Maybe you want to offer "Winter Holiday" wrapping and "Birthday" wrapping separately, or maybe you have other types of wrapping paper or boxes you use that may incur different prices or shipping rules. It's up to you whether or not you make more than one wrapping product. You don't have to.
 
 = How can I style the appearance? =
-I've added CSS tags to every aspect of this form so you can style away. If you want to streamline your site and speed page-loading, move the CSS to your style.css file and comment out the line in *woocommerce-gift-wrap.php* that reads: 
+I've added CSS tags to every aspect of this form so you can style away. If you want to streamline your site and speed page-loading, move the CSS to your style.css file and comment out the line in *woocommerce-gift-wrapper.php* that reads: 
 
 `add_action( 'wp_enqueue_scripts', array( &$this, 'gift_load_css_scripts' ));`
 
