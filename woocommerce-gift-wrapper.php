@@ -4,7 +4,7 @@
  * Plugin URI: http://cap.little-package.com/web
  * Description: This plugin shows gift wrap options on the WooCommerce cart page, and adds gift wrapping to the order
  * Tags: woocommerce, e-commerce, ecommerce, gift, holidays, present
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Caroline Paquette
  * Author URI: http://cap.little-package.com/web
  * Text Domain: woocommerce-gift-wrapper
@@ -32,18 +32,17 @@ class WC_Gift_Wrapping {
  
 	public function __construct() { 
 
-		define( 'GIFT_PLUGIN_VERSION', '1.0' );
+		define( 'GIFT_PLUGIN_VERSION', '1.0.2' );
 		define( 'GIFT_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_lang' ));
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_hooks' ));
 		add_action( 'wp_enqueue_scripts',       								array( $this, 'gift_load_css_scripts' ));
-		add_filter( 'woocommerce_get_sections_products',       					array( $this, 'wcgiftwrapper_add_section' ));
-		add_filter( 'woocommerce_get_settings_products',       					array( $this, 'wcgiftwrapper_settings' ), 10, 2);
+		add_filter( 'woocommerce_get_sections_products',       				array( $this, 'wcgiftwrapper_add_section' ));
+		add_filter( 'woocommerce_get_settings_products',       				array( $this, 'wcgiftwrapper_settings' ), 10, 2);
 		add_action( 'init',       												array( $this, 'add_giftwrap_to_cart' ));
-		add_action( 'init',       												array( $this, 'hide_gift_products' ));
 		add_action( 'woocommerce_checkout_update_order_meta',   				array( $this, 'update_order_meta' ));
-		add_action( 'woocommerce_admin_order_data_after_billing_address', 		array( $this, 'display_admin_order_meta'), 10, 1 );
+		add_action( 'woocommerce_admin_order_data_after_billing_address', 	array( $this, 'display_admin_order_meta'), 10, 1 );
 		add_filter( 'woocommerce_email_order_meta_keys',						array( $this, 'order_meta_keys'));
 
     }
@@ -140,26 +139,12 @@ class WC_Gift_Wrapping {
 				'type'            => 'select',
 				'class'           => 'chosen_select',
 				'css'             => 'width: 450px;',
-				'desc_tip'			=> __( 'Be careful with this setting, as if your Gift Wrap Category is set incorrectly, you can accidentally make the wrong category invisible (or visible) with the next setting.', 'wc-gift-wrap' ),
+				'desc_tip'			=> __( '', 'wc-gift-wrap' ),
 				'default'         => '',
 				'options'         => $gift_cats,
 				'custom_attributes'      => array(
 					'data-placeholder' => __( 'Define a Category', 'wc-gift-wrap' ),
 				)
-			);
-
-			$settings_slider[] = array(
-				'id'       			=> 'giftwrap_show_products',
-				'name'     			=> __( 'Show Gift Wraps in Catalog', 'wc-gift-wrap' ),
-				'desc'     			=> __( 'Should the gift wrap products be visible on shop pages? If no, gift wrap options will only show up in the cart. ', 'wc-gift-wrap' ),
-				'desc_tip' 			=> __( 'Be careful with this setting, as if your Gift Wrap Category is set incorrectly, you can accidentally make the wrong category invisible (or visible). Of course this toggle can be used to set it back.', 'wc-gift-wrap' ),
-				'type'     			=> 'select',
-				'default'         => 'yes',
-				'options'     		=> array(
-					'yes'	=> __( 'Yes - Visible', 'wc-gift-wrap' ),
-					'no'	=> __( 'No - Hidden', 'wc-gift-wrap' ),
-				),
-				'css'      			=> 'min-width:300px;',
 			);
 
 			$settings_slider[] = array(
@@ -371,44 +356,6 @@ class WC_Gift_Wrapping {
 		}
 	}
 	
-	/**
-	 * Hide Gift Wrapping Products from Catalog
-	 **/
-	public function hide_gift_products() {
-		global $post;
-			
-		$giftwrap_show_or_not = get_option('giftwrap_show_products'); // no
-		$giftwrap_category_id  = get_option('giftwrap_category_id', true);
-		
-		if ( isset( $giftwrap_category_id ) ) {
-			$giftwrap_category_slug = get_term( $giftwrap_category_id , 'product_cat' ); // Get the slug of the selected category holding the gift wrap products
-			$get_all_giftproducts_args = array(
-				'posts_per_page' => '-1',
-				'post_count' => -1,
-				'post_type' =>'product',
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'product_cat',
-						'field' => 'slug',
-						'terms' =>  $giftwrap_category_slug->slug
-					),
-				),
-			);
-
-			$get_all_giftproducts_query = new WP_Query( $get_all_giftproducts_args );
-
-			while ( $get_all_giftproducts_query->have_posts() ) { // Loop all products in the category selected and make them shown/hidden
-				$get_all_giftproducts_query->the_post();
-			
-				if ( $giftwrap_show_or_not == 'yes' ) {
-					update_post_meta( $post->ID, '_visibility', 'catalog' );
-				} else if ( $giftwrap_show_or_not == 'no' ){
-					update_post_meta( $post->ID, '_visibility', 'hidden' );
-				}
-			}
-		}
-	}
-
 }  // End class WC_Gift_Wrapping
 
 endif;
