@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ecommerce, e-commerce, woocommerce, gift, present, holidays
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,6 +67,10 @@ I've added CSS tags to every aspect of this form so you can style away. If you w
 
 Yeah, that could be a problem, but rather than hard-code against that possibility I leave the settings to you, and for good reason. If you don't want more than one wrapping possible, make sure to set your wrapping product to "sold individually" under Product Data->Inventory in your Product editor. If you do this make sure your customer has a way to remove the gift wrapping from the cart on small screens, as sometimes responsive CSS designs remove the "Remove from Cart" button from the cart table for small screens.
 
+= I don't want to show gift wrapping in my catalog =
+
+Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper right corner near the blue update button. If you have more than one gift wrap product, do this for each one.
+
 == Screenshots ==
 
 1. Screenshot of the settings page.
@@ -74,7 +78,15 @@ Yeah, that could be a problem, but rather than hard-code against that possibilit
 == Changelog ==
 = 1.0 =
 * Initial release
+= 1.0.1 =
+* Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
+= 1.0.2 =
+* Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
 
 == Upgrade Notice ==
 = 1.0 =
 * Initial release
+= 1.0.1 =
+* Clarifications on settings page to help prevent users making the wrong category invisible
+= 1.0.2 =
+* Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
