@@ -15,13 +15,15 @@
  * donating to my Paypal account (i.e. take me out for a drink!) It's 
  * the proper way to treat someone who does you a favor.
  *
+ * Remember this plugin is free. If you have problems with it, please be
+ * nice and contact me for help before leaving negative feedback!
+ *
  * Copyright: (c) 2014 Caroline Paquette (email cap@little-package.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  */
-
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	
 if ( ! class_exists( 'WC_Gift_Wrapping' ) ) :
@@ -36,16 +38,15 @@ class WC_Gift_Wrapping {
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_lang' ));
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_hooks' ));
 		add_action( 'wp_enqueue_scripts',       								array( $this, 'gift_load_css_scripts' ));
-		add_filter( 'woocommerce_get_sections_products',       				array( $this, 'wcgiftwrapper_add_section' ));
-		add_filter( 'woocommerce_get_settings_products',       				array( $this, 'wcgiftwrapper_settings' ), 10, 2);
+		add_filter( 'woocommerce_get_sections_products',       					array( $this, 'wcgiftwrapper_add_section' ));
+		add_filter( 'woocommerce_get_settings_products',       					array( $this, 'wcgiftwrapper_settings' ), 10, 2);
 		add_action( 'init',       												array( $this, 'add_giftwrap_to_cart' ));
 		add_action( 'init',       												array( $this, 'hide_gift_products' ));
 		add_action( 'woocommerce_checkout_update_order_meta',   				array( $this, 'update_order_meta' ));
-		add_action( 'woocommerce_admin_order_data_after_billing_address', 	array( $this, 'display_admin_order_meta'), 10, 1 );
+		add_action( 'woocommerce_admin_order_data_after_billing_address', 		array( $this, 'display_admin_order_meta'), 10, 1 );
 		add_filter( 'woocommerce_email_order_meta_keys',						array( $this, 'order_meta_keys'));
 
     }
-
 
 	/**
 	 * l10n
@@ -56,7 +57,6 @@ class WC_Gift_Wrapping {
 
 	}
 
-
 	/**
 	 * hooks
 	 **/
@@ -65,18 +65,14 @@ class WC_Gift_Wrapping {
 		load_plugin_textdomain( 'wc-gift-wrap', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
 		$giftwrap_display = get_option('giftwrap_display');
+		
 		if ( $giftwrap_display == 'after_coupon' ) {
-
 			add_action( 'woocommerce_cart_coupon', 		array( &$this, 'add_gift_wrap_to_order' ));
-
 		} else if ( $giftwrap_display == 'after_cart' ) {
-
-			add_action( 'woocommerce_after_cart',			array( &$this, 'add_gift_wrap_to_order' ));
-
+			add_action( 'woocommerce_after_cart',		array( &$this, 'add_gift_wrap_to_order' ));
 		}
 
 	}
-    	
 
 	/**
 	 * Enqueue frontend scripts/css
@@ -86,7 +82,6 @@ class WC_Gift_Wrapping {
 		wp_enqueue_style( 'wcgiftwrap-css', GIFT_PLUGIN_URL .'/style.css' );
 
 	}
-
 
  	/**
 	 * Add settings section under Woocommerce->Products
@@ -98,13 +93,12 @@ class WC_Gift_Wrapping {
 
 	}
 
-
 	/**
 	* Add settings to the specific section we created before
 	*/
 	public function wcgiftwrapper_settings( $settings, $current_section ) {
- 		if ( $current_section == 'wcgiftwrapper' ) {
 
+ 		if ( $current_section == 'wcgiftwrapper' ) {
 				$args_woocommerce_categories = array(
 				'orderby' => 'id',
 				'order' => 'ASC',
@@ -208,13 +202,10 @@ class WC_Gift_Wrapping {
 		return $settings_slider;
 	
 		} else {
-
 			return $settings;
- 
 		}
 	
 	}
-
 		
 	/**
 	 * Add gift wrapping to cart
@@ -226,81 +217,53 @@ class WC_Gift_Wrapping {
 
 		if( $giftwrap && isset( $_POST['giftwrap_btn'] ) ) {
 
-			//get saved giftwrap category ID
-			$giftwrap_giftcategory  = get_option('giftwrap_category_id',true);
-
-			// add giftwrap item to basket
-			$giftwrap_found = false;
-	
-			// add to session
-			if( $giftwrap > 0 ) {
+			$giftwrap_giftcategory  = get_option('giftwrap_category_id',true); // Get saved giftwrap category ID			
+			$giftwrap_found = false; // Add giftwrap item to basket
+			
+			if( $giftwrap > 0 ) { // Add to session
 				$woocommerce->session->ok_gift = $giftwrap;
 
-				//check if giftwrap product already in cart
-				if( sizeof( $woocommerce->cart->get_cart() ) > 0) {
+				if( sizeof( $woocommerce->cart->get_cart() ) > 0) { // Check if giftwrap product already in cart
 
 					foreach( $woocommerce->cart->get_cart() as $cart_item_key=>$values) {
-
 						$_product = $values['data'];
-				
-						//get ID-s of product in cart 
-				
-						//find all product categories in cart
-						$terms = get_the_terms($_product->id , 'product_cat' );
-						if($terms ) {
+						$terms = get_the_terms($_product->id , 'product_cat' );  // Find all product categories in cart
+						if( $terms ) {
 							foreach ($terms as $term) {
-						
 								if($term->term_id == $giftwrap_giftcategory) {
 									$giftwrap_found = true;
 								}
-						
 							}
-
 						}
 				
-						//show message to user ... you already have a giftwrap in cart 
-						if($giftwrap_found) {
+						if($giftwrap_found) { // Show message to user - You already have a giftwrap in cart 
 							wc_add_notice( 'There is already wrapping in your cart. Remove it first if you need to make changes.','notice' );
 						}
-				
-						//set gift wrap notes
-						if( isset( $_POST['wc_giftwrap_notes'] ) ) {
+
+						if( isset( $_POST['wc_giftwrap_notes'] ) ) { //set gift wrap notes
 							$woocommerce->session->giftwrap_notes = $_POST['wc_giftwrap_notes'];
 						}
-
 					}
-			
-					// if  giftwrap product not found, add it
-					if( !$giftwrap_found ) {
+					
+					if( !$giftwrap_found ) { // if  giftwrap product not found, add it
 						$woocommerce->cart->add_to_cart($giftwrap);
-				
-						//set gift wrap notes
-						if( isset( $_POST['wc_giftwrap_notes'] ) ) {
+						if( isset( $_POST['wc_giftwrap_notes'] ) ) { //set gift wrap notes
 							$woocommerce->session->giftwrap_notes = $_POST['wc_giftwrap_notes'];
-
 						}
-
 					}
 				
 				} else {
 
-					// if no giftwrap products in cart, add it
-					$woocommerce->cart->add_to_cart($giftwrap);
+					$woocommerce->cart->add_to_cart($giftwrap); // if no giftwrap products in cart, add it
 			
-					//set gift wrap notes
-					if( isset( $_POST['wc_giftwrap_notes'] ) ) {
+					if( isset( $_POST['wc_giftwrap_notes'] ) ) { //set gift wrap notes
 						$woocommerce->session->giftwrap_notes = $_POST['wc_giftwrap_notes'];
 
 					}	
-			
 				}
-
 			}
-	
 		}
-
 	}
-	
 
 	/**
 	 * Update the order meta with field value
@@ -326,9 +289,12 @@ class WC_Gift_Wrapping {
  	*/
  
 	public function display_admin_order_meta($order){
-    	echo '<p><strong>***'.__( 'Gift Wrap Note', 'wc-gift-wrap' ).':***</strong> ' . get_post_meta( $order->id, '_giftwrap_notes', true ) . '</p>';
+	
+		if ( get_post_meta( $order->id, '_giftwrap_notes', true ) !== '' ) {
+    		echo '<p><strong>'.__( 'Gift Wrap Note', 'wc-gift-wrap' ).':</strong> ' . get_post_meta( $order->id, '_giftwrap_notes', true ) . '</p>';
+    	}
+    	
 	}
-
 
 	/**
 	* Add the field to order emails
@@ -338,13 +304,12 @@ class WC_Gift_Wrapping {
 		return $keys;
 	}
 
-
 	/**
 	 * Add gift wrap to order
 	 **/
 	public function add_gift_wrap_to_order() {
 	
-		global  $woocommerce;
+		global $woocommerce;
 
 		$giftwrap_header =  get_option('giftwrap_header');
 		$giftwrap_category_id =  get_option('giftwrap_category_id', true);
@@ -369,7 +334,6 @@ class WC_Gift_Wrapping {
 		$giftwrap_text_label = get_option('giftwrap_text_label');
 
 		if ( count( $giftwrap_products ) > 0 ) {
-
 			$giftwrap_display = get_option('giftwrap_display');
 			if ( $giftwrap_display == 'after_cart' ) echo '<hr>'; ?>
 			
@@ -379,39 +343,20 @@ class WC_Gift_Wrapping {
 					<ul>
 		
 					<?php if ( count( $giftwrap_products ) > 1 ) {	
-
 						foreach( $giftwrap_products as $giftwrap_product ) {
-	
 							$get_giftwrap_product = new WC_Product( $giftwrap_product->ID );
-			
 							$giftwrap_product_price  = $get_giftwrap_product->get_price_html();
-
 							$giftwrap_product_URL = $get_giftwrap_product->get_permalink();
-			
 							if ( $giftwrap_show_thumb == 'yes' ) {
-
 								$product_image= wp_get_attachment_image(get_post_thumbnail_id($giftwrap_product->ID),'thumbnail');
 								$product_image = '<div class="giftwrap_thumb"><a href="' . $giftwrap_product_URL . '">' . $product_image . '</a></div>';
-
 							}
-
 							echo '<li><input type="radio" class="giftwrap_li" name="giftwrapproduct" value="'.$giftwrap_product->ID.'"><span class="giftwrap_title"> ' . $giftwrap_product->post_title . '</span> ' . $giftwrap_product_price . $product_image . '</li>';
-		   
 						}
-
-
 					} else {
-
-
 						foreach( $giftwrap_products as $giftwrap_product ) {
-
-						//	$get_giftwrap_product = new WC_Product( $giftwrap_product->ID );
-						//	$giftwrap_product_price  = $get_giftwrap_product->get_price_html();
-						//	echo '<input type="checkbox" name="giftwrapproduct" value="'.$giftwrap_product->ID.'">' . $giftwrap_product->post_title . $giftwrap_product_price;
 							echo '<input type="hidden" name="giftwrapproduct" value="'.$giftwrap_product->ID.'">';
-
 						}
-
 					} ?>
 		
 					</ul>
@@ -428,57 +373,45 @@ class WC_Gift_Wrapping {
 			
 		<?php 
 		}
-		
 	}
-	
 	
 	/**
 	 * Hide Gift Wrapping Products from Catalog
 	 **/
 	public function hide_gift_products() {
-
-		$giftwrap_show_or_not = get_option('giftwrap_show_products'); // no
-
-		$giftwrap_giftcategory  = get_option('giftwrap_category_id');
-
-		//get the slug of the selected category holding the gift wrap products
-		$giftwrap_category_slug = get_term( $giftwrap_giftcategory , 'product_cat' ); 
-
-		$get_all_giftproducts_args = array(
-			'posts_per_page' => '-1',
-			'post_count' => -1,
-			'post_type' =>'product',
-			'tax_query' => array(
-				array(
-					'taxonomy' => 'product_cat',
-					'field' => 'slug',
-					'terms' =>  $giftwrap_category_slug->slug
-
-				),
-			),
-		);
-
-		$get_all_giftproducts_query = new WP_Query( $get_all_giftproducts_args );
 		global $post;
-
-		//loop all products in the category selected and make them shown/hidden
-		while ( $get_all_giftproducts_query->have_posts() ) {
-
-			$get_all_giftproducts_query->the_post();
-
-			if ( $giftwrap_show_or_not == 'yes' ) {
-
-				update_post_meta( $post->ID, '_visibility', 'catalog' );
 			
-			} else if ( $giftwrap_show_or_not == 'no' ){
+		$giftwrap_show_or_not = get_option('giftwrap_show_products'); // no
+		$giftwrap_category_id  = get_option('giftwrap_category_id', true);
+		
+		if ( isset( $giftwrap_category_id ) ) {
+			$giftwrap_category_slug = get_term( $giftwrap_category_id , 'product_cat' ); // Get the slug of the selected category holding the gift wrap products
+			$get_all_giftproducts_args = array(
+				'posts_per_page' => '-1',
+				'post_count' => -1,
+				'post_type' =>'product',
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'product_cat',
+						'field' => 'slug',
+						'terms' =>  $giftwrap_category_slug->slug
+					),
+				),
+			);
 
-				update_post_meta( $post->ID, '_visibility', 'hidden' );
+			$get_all_giftproducts_query = new WP_Query( $get_all_giftproducts_args );
+
+			while ( $get_all_giftproducts_query->have_posts() ) { // Loop all products in the category selected and make them shown/hidden
+				$get_all_giftproducts_query->the_post();
+			
+				if ( $giftwrap_show_or_not == 'yes' ) {
+					update_post_meta( $post->ID, '_visibility', 'catalog' );
+				} else if ( $giftwrap_show_or_not == 'no' ){
+					update_post_meta( $post->ID, '_visibility', 'hidden' );
+				}
 			}
-
 		}
-
 	}
-
 }  // End class WC_Gift_Wrapping
 
 endif;
