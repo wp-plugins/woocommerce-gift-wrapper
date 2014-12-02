@@ -82,6 +82,7 @@ Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper
 * Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
 = 1.0.2 =
 * Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
+* Minor CSS fix
 
 == Upgrade Notice ==
 = 1.0 =
@@ -90,3 +91,4 @@ Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper
 * Clarifications on settings page to help prevent users making the wrong category invisible
 = 1.0.2 =
 * Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
+* Minor CSS fix

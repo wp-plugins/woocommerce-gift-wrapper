@@ -4,7 +4,7 @@
  * Plugin URI: http://cap.little-package.com/web
  * Description: This plugin shows gift wrap options on the WooCommerce cart page, and adds gift wrapping to the order
  * Tags: woocommerce, e-commerce, ecommerce, gift, holidays, present
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Caroline Paquette
  * Author URI: http://cap.little-package.com/web
  * Text Domain: woocommerce-gift-wrapper
@@ -32,14 +32,29 @@ class WC_Gift_Wrapping {
  
 	public function __construct() { 
 
-		define( 'GIFT_PLUGIN_VERSION', '1.0.2' );
+		define( 'GIFT_PLUGIN_VERSION', '1.0.3' );
 		define( 'GIFT_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_lang' ));
 		add_action( 'plugins_loaded',       									array( $this, 'wcgiftwrapper_hooks' ));
 		add_action( 'wp_enqueue_scripts',       								array( $this, 'gift_load_css_scripts' ));
-		add_filter( 'woocommerce_get_sections_products',       				array( $this, 'wcgiftwrapper_add_section' ));
-		add_filter( 'woocommerce_get_settings_products',       				array( $this, 'wcgiftwrapper_settings' ), 10, 2);
+
+		if ( version_compare( self::get_woo_version_number(), '2.2.2' ) >= 0  ) {
+
+			// greater than or equal to v2.2;
+			add_filter( 'woocommerce_get_sections_products',       				array( $this, 'wcgiftwrapper_add_section' ));
+			add_filter( 'woocommerce_get_settings_products',       				array( $this, 'wcgiftwrapper_settings' ), 10, 2);
+
+		} else {
+
+			// less than v2.2.2
+			$this->tab_name = 'wc-gift-wrap';
+			add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 101  );
+			add_action( 'woocommerce_settings_tabs_' . $this->tab_name, array( $this, 'create_settings_page' ) ); 
+			add_action( 'woocommerce_update_options_' . $this->tab_name, array( $this, 'save_settings_page' ) );
+
+		}
+
 		add_action( 'init',       												array( $this, 'add_giftwrap_to_cart' ));
 		add_action( 'woocommerce_checkout_update_order_meta',   				array( $this, 'update_order_meta' ));
 		add_action( 'woocommerce_admin_order_data_after_billing_address', 	array( $this, 'display_admin_order_meta'), 10, 1 );
@@ -54,6 +69,28 @@ class WC_Gift_Wrapping {
 
 		load_plugin_textdomain( 'woocommerce-gift-wrapper', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
+	}
+
+	/**
+	 * WC version
+	 **/
+	public function get_woo_version_number() {
+        // If get_plugins() isn't available, require it
+		if ( ! function_exists( 'get_plugins' ) )
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	
+        	// Create the plugins folder and file variables
+			$plugin_folder = get_plugins( '/' . 'woocommerce' );
+			$plugin_file = 'woocommerce.php';
+	
+			// If the plugin version number is set, return it 
+			if ( isset( $plugin_folder[$plugin_file]['Version'] ) ) {
+				return $plugin_folder[$plugin_file]['Version'];
+
+		} else {
+			// Otherwise return null
+			return NULL;
+		}
 	}
 
 	/**
@@ -82,8 +119,140 @@ class WC_Gift_Wrapping {
 
 	}
 
+	/**
+	 *  For Woo < 2.2.2 - Add a tab to the settings page	
+	 */
+	public function add_settings_tab($tabs) {
+
+		$tabs[$this->tab_name] = __( 'Gift Wrapper', 'wc-gift-wrap' );
+		return $tabs;
+
+	}
+
+	/**
+	 * For Woo < 2.2.2 - Include and display the settings page.
+	 */
+	public function create_settings_page() {
+
+		$wcgiftwrapper_settings = $this->settings_array();
+		woocommerce_admin_fields( $wcgiftwrapper_settings );		
+
+	}
+
+	/**
+	 * For Woo < 2.2.2 - Save the settings page.
+	 */
+	public function save_settings_page() {
+
+		$wcgiftwrapper_settings = $this->settings_array();
+
+		if ( is_admin() ) {
+			if ( isset( $wcgiftwrapper_settings ) ) {
+				foreach ( $wcgiftwrapper_settings as $value ) {
+					if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+						woocommerce_update_options( $wcgiftwrapper_settings );
+					}
+				}
+			}
+		} else {
+			// NULL
+		}
+	}
+
+
+	/**
+	 * For Woo < 2.2.2 - Settings array
+	 */
+	public function settings_array() {
+
+		$args_woocommerce_categories = array(
+		'orderby' => 'id',
+		'order' => 'ASC',
+		'taxonomy' => 'product_cat',
+		'hide_empty' => '0',
+		'hierarchical' => '1'
+			);
+
+		$gift_cats = array();
+		$gifts_woocommerce_categories = ( $gifts_woocommerce_categories = get_categories( $args_woocommerce_categories ) ) ? $gifts_woocommerce_categories : array();
+		foreach( $gifts_woocommerce_categories as $gifts_woocommerce_category )
+			$gift_cats[ $gifts_woocommerce_category->term_id ] = $gifts_woocommerce_category->name;
+	
+		return array(
+
+			array( 
+				'id' 				=> 'wcgiftwrapper',
+				'title' 				=> __( 'Gift Wrapping Options', 'text-domain' ), 
+				'type' 				=> 'title', 
+				'desc' 				=> sprintf(__( '<strong>1.</strong> Start by <a href="%s" target="_blank">adding at least one product</a> called "Gift Wrapping" or something similar.<br /><strong>2.</strong> Create a unique product category for this/these gift wrapping product(s), and add them to this category.<br /><strong>3.</strong> Then consider the options below.', 'text-domain' ), wp_nonce_url(admin_url('post-new.php?post_type=product'),'add-product'))
+			),
+
+			array(
+				'id'       			=> 'giftwrap_display',
+				'title'     		=> __( 'Where to Show Gift Wrapping', 'wc-gift-wrap' ),
+				'desc'     			=> __( '', 'wc-gift-wrap' ),
+				'desc_tip' 			=> __( '', 'wc-gift-wrap' ),
+				'type'     			=> 'select',
+				'options'     		=> array(
+					'after_coupon'	=> __( 'Under Coupon Field in Cart', 'wc-gift-wrap' ),
+					'after_cart'	=> __( 'Above Totals Field in Cart', 'wc-gift-wrap' ),
+				),
+				'css'      			=> 'min-width:300px;'
+			),
+
+			array(
+				'id'			=> 'giftwrap_category_id',
+				'title'           => __( 'Gift Wrap Category', 'wc-gift-wrap' ),
+				'type'            => 'select',
+				'class'           => 'chosen_select',
+				'css'             => 'width: 450px;',
+				'desc_tip'			=> __( '', 'wc-gift-wrap' ),
+				'default'         => '',
+				'options'         => $gift_cats,
+				'custom_attributes'      => array(
+					'data-placeholder' => __( 'Define a Category', 'wc-gift-wrap' ),
+				)
+			),
+
+			array(
+				'id'       			=> 'giftwrap_show_thumb',
+				'title'     			=> __( 'Show Gift Wrap Thumbs in Cart', 'wc-gift-wrap' ),
+				'desc'     			=> __( '', 'wc-gift-wrap' ),
+				'desc_tip' 			=> __( 'Should gift wrap product thumbnail images be visible in the cart?', 'wc-gift-wrap' ),
+				'type'     			=> 'select',
+				'default'         => 'yes',
+				'options'     		=> array(
+					'yes'	=> __( 'Yes', 'wc-gift-wrap' ),
+					'no'	=> __( 'No', 'wc-gift-wrap' ),
+				),
+				'css'      			=> 'min-width:300px;',
+			),
+ 
+			array(
+				'id'       			=> 'giftwrap_header',
+				'title'     			=> __( 'Gift Wrap Cart Header', 'wc-gift-wrap' ),
+				'desc'     			=> '',
+				'desc_tip' 			=> __( 'The text you would like to use to describe your gift wrap offering.', 'wc-gift-wrap' ),
+				'type'     			=> 'textarea',
+				'css'      => 'width:50%; height: 75px;',
+			),
+
+			array(
+				'id'       			=> 'giftwrap_text_label',
+				'title'     		=> __( 'Gift Wrap Textarea Label', 'wc-gift-wrap' ),
+				'desc'     			=> '',
+				'desc_tip' 			=> __( 'The text you would like to use for the textarea label', 'wc-gift-wrap' ),
+				'type'     			=> 'text',
+ 				'default'         	=> 'Add Gift Wrap Message:',
+				'css'      			=> 'min-width:300px;',
+			),
+		);
+
+	}
+
+
  	/**
-	 * Add settings section under Woocommerce->Products
+	 * Add settings SECTION under Woocommerce->Products
 	 **/
     public function wcgiftwrapper_add_section( $sections ) {
 	
@@ -91,6 +260,7 @@ class WC_Gift_Wrapping {
 		return $sections;
 
 	}
+
 
 	/**
 	* Add settings to the specific section we created before
