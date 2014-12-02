@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ecommerce, e-commerce, woocommerce, gift, present, holidays
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,8 +32,12 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 
 = To remove plugin: =
 
+
+
 1. Deactivate plugin through the 'Plugins' menu in WordPress
+
 2. Delete plugin through the 'Plugins' menu in WordPress
+
 
 == Frequently Asked Questions ==
 
