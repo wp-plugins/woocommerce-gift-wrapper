@@ -1,10 +1,10 @@
 === Woocommerce Gift Wrapper===
 Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
-Tags: ecommerce, e-commerce, woocommerce, gift, present, holidays
+Tags: ecommerce, e-commerce, woocommerce, woothemes, woo, gift, present
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.0.3
+Tested up to: 4.0.1
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,9 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 * Use your own copy/language on the cart page
 * Set individual prices, descriptions, and images for wrapping types
 * Show or hide wrap images in cart
+* Static or modal view of giftwrap options
 * Get notice of the gift wrap message by email order notification and on the order page
+* Fully CSS-tagged for your customizing pleasure.
 * If you have suggestions for other features, please get in touch.
 
 == Installation ==
@@ -32,12 +34,9 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 
 = To remove plugin: =
 
-
-
 1. Deactivate plugin through the 'Plugins' menu in WordPress
 
 2. Delete plugin through the 'Plugins' menu in WordPress
-
 
 == Frequently Asked Questions ==
 
@@ -75,6 +74,18 @@ Yeah, that could be a problem, but rather than hard-code against that possibilit
 
 Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper right corner near the blue update button. If you have more than one gift wrap product, do this for each one.
 
+= Can I make the plugin's CSS/JavaScript load on the cart page only? =
+Yes. It's a good idea to load scripts conditionally to keep page load times down. You only need the plugin scripts on the WooCommece cart page, so just add the following to your functions.php:
+
+`function wcgiftwrapper_manage_scripts() {
+	if ( !is_page( 'cart' ) ) {
+		wp_dequeue_script( 'wcgiftwrap-js' );
+		wp_dequeue_script( 'wcgiftwrap-css' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'wcgiftwrapper_manage_scripts', 99 );`
+
+
 == Screenshots ==
 
 1. Screenshot of the settings page.
@@ -86,7 +97,13 @@ Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper
 * Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
 = 1.0.2 =
 * Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
+= 1.0.3 =
+* Now compatible with versions of WC < 2.2.2
 * Minor CSS fix
+= 1.1.0 =
+* Finished l10n install
+* Added in copyright/fork notice for Gema75
+* Modal view in cart
 
 == Upgrade Notice ==
 = 1.0 =
@@ -95,4 +112,11 @@ Visit your gift wrap product and set Catalog Visibility to "hidden" in the upper
 * Clarifications on settings page to help prevent users making the wrong category invisible
 = 1.0.2 =
 * Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
+= 1.0.3 =
+* Now compatible with versions of WC < 2.2.2
 * Minor CSS fix
+= 1.1.0 =
+* Finished l10n install
+* Added in copyright/fork notice for Gema75
+* Modal view in cart
+* Modal view in cart
