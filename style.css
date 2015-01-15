@@ -1,9 +1,0 @@
-#wc-giftwrap {margin: 1em 0 0 0}
-.wc_giftwrap_notes_container {display:block}
-#wc-giftwrap p.giftwrap_header {margin: 1em 0 0 0;font-size:.9em}
-#wc-giftwrap ul {margin: 1em 0 0 0;display:inline-block}
-#wc-giftwrap li {float:left;font-size:.75em;margin-right:3em}
-#wc-giftwrap label {margin: 0 1em 0 0}
-#wc-giftwrap textarea {display: block}
-#wc-giftwrap .amount:before {content: "- "}
-#wc-giftwrap .button {margin: 1em 0 0 0}
