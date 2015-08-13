@@ -109,25 +109,25 @@ add_action( 'wp_enqueue_scripts', 'wcgiftwrapper_manage_scripts', 99 );`
 * Spanish and French translations
 
 == Changelog ==
-= 1.0 October 29 2014
+= 1.0 October 29 2014 =
 * Initial release
 
-= 1.0.1 November 6 2014
+= 1.0.1 November 6 2014 =
 * Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
 
-= 1.0.2 November 6 2014
+= 1.0.2 November 6 2014 =
 * Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
 
-= 1.0.3 December 2 2014
+= 1.0.3 December 2 2014 =
 * Now compatible with versions of WC < 2.2.2
 * Minor CSS fix
 
-= 1.1.0 January 13 2014
+= 1.1.0 January 13 2014 =
 * Finished l10n install
 * Added in copyright/fork notice for Gema75
 * Modal view in cart
 
-= 1.2.0 August 12 2015
+= 1.2.0 August 12 2015 =
 * Wordpress 4.3 ready
 * Fixed JS and modal issues (modal was clipped when page was scrolled, JS now loaded in footer)
 * JS dialog option when replacing wrapping already in cart
