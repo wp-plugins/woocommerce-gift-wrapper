@@ -1,0 +1,205 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Woocommerce Gift Wrapper v1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-08-12 23:41:32+0000\n"
+"Last-Translator: littlepackage <hi@little-package.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: MEXICO\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#. translators: plugin header field 'Name'
+#: woocommerce-gift-wrapper.php:0
+#@ wc-gift-wrapper
+msgid "Woocommerce Gift Wrapper"
+msgstr "Woocommerce Gift Wrapper"
+
+#. translators: plugin header field 'Description'
+#: woocommerce-gift-wrapper.php:0
+#@ wc-gift-wrapper
+msgid "This plugin shows gift wrap options on the WooCommerce cart page, and adds gift wrapping to the order"
+msgstr "Este plugin muestra opciones de envoltura de regalo en la página de cesta WooCommerce, y añade envoltura de regalos a la orden"
+
+#. translators: plugin header field 'Author'
+#: woocommerce-gift-wrapper.php:0
+#@ wc-gift-wrapper
+msgid "Caroline Paquette"
+msgstr "Caroline Paquette"
+
+#: woocommerce-gift-wrapper.php:134
+#@ wc-gift-wrapper
+msgid "Gift Wrapping Options"
+msgstr "Opciones de Embalaje de Regalo"
+
+#: woocommerce-gift-wrapper.php:136
+#, php-format
+#@ wc-gift-wrapper
+msgid "<strong>1.</strong> Start by <a href=\"%s\" target=\"_blank\">adding at least one product</a> called \"Gift Wrapping\" or something similar.<br /><strong>2.</strong> Create a unique product category for this/these gift wrapping product(s), and add them to this category.<br /><strong>3.</strong> Then consider the options below."
+msgstr "<strong>1.</strong> Comience por <a href=\"%s\" target=\"_blank\">añadir al menos un producto</a> llama \"Envoltura de regalo\" o algo similar.<br /><strong>2.</strong> Crear una categoría de producto único para este/estos producto(s) envoltura de regalos, y añadirlos a esta categoría.<br /><strong>3.</strong> Entonces considere las siguientes opciones."
+
+#: woocommerce-gift-wrapper.php:141
+#@ wc-gift-wrapper
+msgid "Where to Show Gift Wrapping"
+msgstr "Dónde Mostrar Envoltura de regalo"
+
+#: woocommerce-gift-wrapper.php:142
+#@ wc-gift-wrapper
+msgid "Choose where to show gift wrap options to the customer on the cart page."
+msgstr "Elija dónde mostrar las opciones de envoltura de regalo para el cliente en la página de compra."
+
+#: woocommerce-gift-wrapper.php:146
+#@ wc-gift-wrapper
+msgid "Under Coupon Field in Cart"
+msgstr "Bajo Campo Cupón Carrito"
+
+#: woocommerce-gift-wrapper.php:147
+#@ wc-gift-wrapper
+msgid "Above Totals Field in Cart"
+msgstr "Por Encima del Campo de Totales Carrito"
+
+#: woocommerce-gift-wrapper.php:154
+#@ wc-gift-wrapper
+msgid "Embalaje de Regalo Categoría"
+msgstr "Embalaje de Regalo Categoría"
+
+#: woocommerce-gift-wrapper.php:155
+#@ wc-gift-wrapper
+msgid "Define the category which holds your gift wrap product(s)."
+msgstr "Definir la categoría que mantiene su producto(s) envoltura de regalo"
+
+#: woocommerce-gift-wrapper.php:162
+#@ wc-gift-wrapper
+msgid "Define a Category"
+msgstr "Definir una Categoría"
+
+#: woocommerce-gift-wrapper.php:168
+#@ wc-gift-wrapper
+msgid "Show Gift Wrap Thumbs in Cart"
+msgstr "Mostrar Envoltura de Regalo Miniaturas Carrito"
+
+#: woocommerce-gift-wrapper.php:169
+#@ wc-gift-wrapper
+msgid "Should gift wrap product thumbnail images be visible in the cart?"
+msgstr "¿En caso de imágenes en miniatura del producto regalo envoltura ser visible en el carro?"
+
+#: woocommerce-gift-wrapper.php:173
+#: woocommerce-gift-wrapper.php:195
+#@ wc-gift-wrapper
+msgid "Yes"
+msgstr "Sí"
+
+#: woocommerce-gift-wrapper.php:174
+#: woocommerce-gift-wrapper.php:196
+#@ wc-gift-wrapper
+msgid "No"
+msgstr "No"
+
+#: woocommerce-gift-wrapper.php:181
+#@ wc-gift-wrapper
+msgid "Gift Wrap Cart Header"
+msgstr "Envoltura de Regalo Compras Cabecera"
+
+#: woocommerce-gift-wrapper.php:212
+#@ wc-gift-wrapper
+msgid "Gift Wrap Textarea Label"
+msgstr "Envoltura de Regalo Encasillado Label"
+
+#: woocommerce-gift-wrapper.php:213
+#@ wc-gift-wrapper
+msgid "The text you would like to use for the textarea label"
+msgstr "El texto que desea utilizar para la etiqueta encasillado"
+
+#: woocommerce-gift-wrapper.php:103
+#@ wc-gift-wrapper
+msgid "Gift Wrapping"
+msgstr "Envoltorio de Regalo"
+
+#: woocommerce-gift-wrapper.php:364
+#: woocommerce-gift-wrapper.php:376
+#@ wc-gift-wrapper
+msgid "Gift Wrap Note"
+msgstr "Envoltura de Regalo Nota"
+
+#: woocommerce-gift-wrapper.php:224
+#@ wc-gift-wrapper
+msgid "Add Gift Wrap to Order"
+msgstr "Añadir Embalaje de Regalo al Pedido"
+
+#: woocommerce-gift-wrapper.php:184
+#@ wc-gift-wrapper
+msgid "Add gift wrapping?"
+msgstr "¿Añadir envoltura de regalos?"
+
+#: woocommerce-gift-wrapper.php:190
+#@ wc-gift-wrapper
+msgid "Should Gift Wrap option open in pop-up?"
+msgstr "¿En caso de que la opción de papel de regalo abierta en el ventana emergente?"
+
+#: woocommerce-gift-wrapper.php:203
+#@ wc-gift-wrapper
+msgid "Gift Wrap Details"
+msgstr "Envoltura de Regalo detalles"
+
+#: woocommerce-gift-wrapper.php:204
+#@ wc-gift-wrapper
+msgid "The text to give any details or conditions of your gift wrap offering."
+msgstr "El texto que dio detalles o condiciones de su oferta de envoltura de regalo."
+
+#: woocommerce-gift-wrapper.php:215
+#@ wc-gift-wrapper
+msgid "Add Gift Wrap Message:"
+msgstr "Añadir Mensaje Envoltura de Regalo:"
+
+#: woocommerce-gift-wrapper.php:221
+#@ wc-gift-wrapper
+msgid "Gift Wrap Button Text"
+msgstr "Envoltura de Regalo Botón texto"
+
+#: woocommerce-gift-wrapper.php:222
+#@ wc-gift-wrapper
+msgid "The text for the add to cart button"
+msgstr "El texto para el complemento al botón del carro"
+
+#: woocommerce-gift-wrapper.php:182
+#@ wc-gift-wrapper
+msgid "The text you would like to use to introduce your gift wrap offering."
+msgstr "El texto que le gustaría usar para presentar su oferta de envoltura de regalo."
+
+#: woocommerce-gift-wrapper.php:191
+#@ wc-gift-wrapper
+msgid "If checked, there will be a link (\"header\") in the cart, which when clicked will open a window for customers to choose gift wrapping options. It can be styled and might be a nicer option for your site."
+msgstr "Si se selecciona, habrá un enlace ("cabecera") en el carro, que cuando se hace clic se abrirá una ventana para que los clientes elijan las opciones de envoltura de regalo. Puede ser de estilo y podría ser una opción mejor para su sitio."
+
+#: woocommerce-gift-wrapper.php:426
+#@ wc-gift-wrapper
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. translators: plugin header field 'PluginURI'
+#: woocommerce-gift-wrapper.php:0
+#@ wc-gift-wrapper
+msgid "http://www.little-package.com/woocommerce-gift-wrapper"
+msgstr "http://www.little-package.com/woocommerce-gift-wrapper"
+
+#. translators: plugin header field 'Version'
+#: woocommerce-gift-wrapper.php:0
+#@ wc-gift-wrapper
+msgid "1.2"
+msgstr "1.2"
+
+#: woocommerce-gift-wrapper.php:512
+#@ wc-gift-wrapper
+msgid "Are you sure you want to replace the gift wrap in your cart?"
+msgstr "¿Seguro que desea reemplazar el envoltura de regalo en su cesta?"
