@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: ecommerce, e-commerce, woocommerce, woothemes, woo, gift, present
 Requires at least: 3.8
-Tested up to: 4.0.1
-Stable tag: 1.1.0
+Tested up to: 4.3
+Stable tag: 1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,8 +18,8 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 * Use your own copy/language on the cart page
 * Set individual prices, descriptions, and images for wrapping types
 * Show or hide wrap images in cart
-* Static or modal view of giftwrap options
-* Get notice of the gift wrap message by email order notification and on the order page
+* Static or modal view of giftwrap options on cart page
+* Get notice of the customer's intended gift wrap message by email order notification and on the order page
 * Fully CSS-tagged for your customizing pleasure.
 * If you have suggestions for other features, please get in touch.
 
@@ -29,13 +29,12 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 
 1. Upload the entire "woocommerce_gift_wrap" folder to the "/wp-content/plugins/" directory.
 2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Visit WooCommerce->Settings->Products tab to set your plugin preferences. Look for the Gift Wrap sub tab.
+3. Visit WooCommerce->Settings->Products tab to set your plugin preferences. Look for the "Gift Wrapping" sub tab link.
 4. Follow the instructions there and review the settings.
 
 = To remove plugin: =
 
 1. Deactivate plugin through the 'Plugins' menu in WordPress
-
 2. Delete plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
@@ -44,8 +43,9 @@ Holidays are always coming! Offer your customers gift wrapping, per order, in th
 Things to check:
 
 1. Is the plugin activated?
-2. Is WooCommerce activated and configured, and are all the theme files current (check WooCommerce->system status if unsure)
-3. Does the your-theme-or-child-theme/woocommerce/cart/cart.php file include the code
+2. Are you using WooCommerce version 2.2.2 or newer? Time to upgrade!
+3. Is WooCommerce activated and configured, and are all the theme files current (check WooCommerce->System Status if unsure)
+4. Does the your-theme-or-child-theme/woocommerce/cart/cart.php file include the code
 
 `<?php do_action('woocommerce_cart_coupon'); ?>` or
 `<?php do_action('woocommerce_after_cart'); ?>`
@@ -62,7 +62,7 @@ Have you added a gift wrapping as a product? This plugin works by creating a pro
 Maybe you want to offer "Winter Holiday" wrapping and "Birthday" wrapping separately, or maybe you have other types of wrapping paper or boxes you use that may incur different prices or shipping rules. It's up to you whether or not you make more than one wrapping product. You don't have to.
 
 = How can I style the appearance? =
-I've added CSS tags to every aspect of this form so you can style away. If you want to streamline your site and speed page-loading, move the CSS to your style.css file and comment out the line in *woocommerce-gift-wrapper.php* that reads: 
+I've added CSS tags to every aspect of the cart forms so you can style away. If you want to streamline your site and speed page-loading, move the CSS to your style.css file and comment out the line in *woocommerce-gift-wrapper.php* that reads: 
 
 `add_action( 'wp_enqueue_scripts', array( &$this, 'gift_load_css_scripts' ));`
 
@@ -85,25 +85,9 @@ Yes. It's a good idea to load scripts conditionally to keep page load times down
 }
 add_action( 'wp_enqueue_scripts', 'wcgiftwrapper_manage_scripts', 99 );`
 
-
 == Screenshots ==
 
 1. Screenshot of the settings page.
-
-== Changelog ==
-= 1.0 =
-* Initial release
-= 1.0.1 =
-* Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
-= 1.0.2 =
-* Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
-= 1.0.3 =
-* Now compatible with versions of WC < 2.2.2
-* Minor CSS fix
-= 1.1.0 =
-* Finished l10n install
-* Added in copyright/fork notice for Gema75
-* Modal view in cart
 
 == Upgrade Notice ==
 = 1.0 =
@@ -119,4 +103,34 @@ add_action( 'wp_enqueue_scripts', 'wcgiftwrapper_manage_scripts', 99 );`
 * Finished l10n install
 * Added in copyright/fork notice for Gema75
 * Modal view in cart
+= 1.2.0 =
+* Wordpress 4.3 ready
+* Woocommerce version < 2.2.2 support removed
+* Spanish and French translations
+
+== Changelog ==
+= 1.0 October 29 2014
+* Initial release
+
+= 1.0.1 November 6 2014
+* Clarifications on settings page to help prevent users making the wrong category invisible; multi-select may need to be removed.
+
+= 1.0.2 November 6 2014
+* Removed setting to hide gift wrap from catalog as it was potentially disruptive if category was set wrong
+
+= 1.0.3 December 2 2014
+* Now compatible with versions of WC < 2.2.2
+* Minor CSS fix
+
+= 1.1.0 January 13 2014
+* Finished l10n install
+* Added in copyright/fork notice for Gema75
 * Modal view in cart
+
+= 1.2.0 August 12 2015
+* Wordpress 4.3 ready
+* Fixed JS and modal issues (modal was clipped when page was scrolled, JS now loaded in footer)
+* JS dialog option when replacing wrapping already in cart
+* User notes added below Product name in cart for customer reassurance
+* Woocommerce version < 2.2.2 support removed
+* Spanish and French translations

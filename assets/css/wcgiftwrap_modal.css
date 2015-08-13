@@ -1,16 +1,17 @@
-#wc-giftwrap {display: table;clear: both}
+.wc-giftwrap {display: table;clear: both}
 .wc_giftwrap_notes_container {margin:1em 0 0 0}
-#wc-giftwrap .wc_giftwrap_notes_container label {display:block}
-#wc-giftwrap p.giftwrap_header {margin:1em 0 0 0}
-#wc-giftwrap ul {margin: 1em 0 0 0;list-style:none;display:inline-block}
-#wc-giftwrap li {float:left}
-#wc-giftwrap li:not(first-of-type) {margin:1em 3em 0 0}
-#wc-giftwrap input[type="radio"] {vertical-align:middle}
-#wc-giftwrap label.giftwrap_desc {display:block}
-#wc-giftwrap .giftwrap_thumb {margin:1em 0 0 0}
-#wc-giftwrap textarea {display: block;width:100%}
-#wc-giftwrap .amount:before {content:"- "}
-#wc-giftwrap .button {}
+.wc-giftwrap .wc_giftwrap_notes_container label {display:block}
+.wc-giftwrap p.giftwrap_header {margin:1em 0 0 0}
+.type-page .wc-giftwrap ul {margin: 1em 0 0 0;list-style:none;display:inline-block}
+.wc-giftwrap li {float:left}
+.wc-giftwrap li:not(first-of-type) {margin:1em 3em 0 0}
+table.cart td.actions .coupon .wc-giftwrap li label {display:inline}
+.wc-giftwrap input[type="radio"] {vertical-align:middle}
+.wc-giftwrap label.giftwrap_desc {display:block}
+.wc-giftwrap .giftwrap_thumb {margin:1em 0 0 0}
+.wc-giftwrap textarea {display: block;width:100%}
+.wc-giftwrap .amount:before {content:"- "}
+.wc-giftwrap .button {}
 /*!
  * Bootstrap v3.3.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
